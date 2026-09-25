@@ -1,0 +1,60 @@
+name: ROS practices
+
+on: [push, pull_request]
+
+env:
+  COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w02-5d210c431e32.tar.gz
+  COURSE_KIT_SHA256: 5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    container: ros:jazzy-ros-base
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -eo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates curl git python3-colcon-common-extensions ros-jazzy-turtlesim
+      - name: Validate PR01 environment JSON
+        shell: bash
+        run: |
+          set -eo pipefail
+          if test -f PR01/evidence/pr01/environment.json; then
+            python3 -m json.tool PR01/evidence/pr01/environment.json > /dev/null
+          fi
+      - name: Build PR02 launch package
+        shell: bash
+        run: |
+          set -eo pipefail
+          if test -f PR02/src/turtle_bringup/package.xml; then
+            cd PR02
+            source /opt/ros/jazzy/setup.bash
+            colcon build --symlink-install --packages-select turtle_bringup
+            source install/setup.bash
+            test -f "$(ros2 pkg prefix turtle_bringup)/share/turtle_bringup/launch/sim.launch.py"
+            python3 -m py_compile src/turtle_bringup/launch/sim.launch.py
+          fi
+      - name: Download pinned course kit
+        shell: bash
+        run: |
+          set -eo pipefail
+          curl -fSL --retry 3 --retry-delay 3 -o course-kit.tar.gz "$COURSE_KIT_URL"
+          printf '%s  %s\n' "$COURSE_KIT_SHA256" course-kit.tar.gz | sha256sum -c -
+          mkdir -p .course-kit
+          tar -xzf course-kit.tar.gz -C .course-kit
+          test "$(cat .course-kit/v1/VERSION)" = v1-w02
+      - name: Check practice evidence
+        shell: bash
+        run: |
+          set -eo pipefail
+          if test -f PR01/evidence/pr01/report.json; then
+            python3 .course-kit/v1/tools/check_practice.py PR01 --submission PR01
+          fi
+          if test -f PR02/evidence/pr02/report.json; then
+            python3 .course-kit/v1/tools/check_practice.py PR02 --submission PR02
+          fi
