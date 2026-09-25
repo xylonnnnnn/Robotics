@@ -1,0 +1,15 @@
+{
+  "launch_mode": "docker",
+  "host_os": "macOS (Darwin 25.5.0, arm64)",
+  "container_os": "Ubuntu 24.04.5 LTS (arm64)",
+  "docker_image": "ros:jazzy-ros-base@sha256:c3706ef0a0aa45413c07803cf433602f543b22e45b4855f6fca955c2d8ecc4e8",
+  "ros_distro": "jazzy",
+  "ros_version": 2,
+  "rmw_implementation": "rmw_fastrtps_cpp",
+  "gazebo_version": null,
+  "gui": "Xvfb virtual display",
+  "domains": {
+    "original": 216,
+    "isolated": 217
+  }
+}

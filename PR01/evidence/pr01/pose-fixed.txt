@@ -1,0 +1,9 @@
+$ ros2 topic echo /turtle1/pose turtlesim/msg/Pose --once
+ROS_DOMAIN_ID=216
+exit=0
+x: 11.088889122009277
+y: 5.544444561004639
+theta: 0.0
+linear_velocity: 0.0
+angular_velocity: 0.0
+---

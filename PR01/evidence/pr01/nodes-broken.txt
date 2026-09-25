@@ -1,0 +1,4 @@
+$ ros2 node list --no-daemon --spin-time 2
+ROS_DOMAIN_ID=217
+exit=0
+/teleop_turtle

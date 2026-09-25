@@ -1,0 +1,25 @@
+$ ros2 topic hz /turtle1/pose
+ROS_DOMAIN_ID=216
+exit=124
+average rate: 62.422
+	min: 0.012s max: 0.019s std dev: 0.00180s window: 64
+average rate: 62.497
+	min: 0.012s max: 0.020s std dev: 0.00180s window: 127
+average rate: 62.497
+	min: 0.012s max: 0.020s std dev: 0.00189s window: 190
+average rate: 62.481
+	min: 0.011s max: 0.020s std dev: 0.00190s window: 253
+average rate: 62.486
+	min: 0.011s max: 0.020s std dev: 0.00184s window: 316
+average rate: 62.484
+	min: 0.011s max: 0.020s std dev: 0.00181s window: 379
+average rate: 62.497
+	min: 0.011s max: 0.021s std dev: 0.00184s window: 442
+average rate: 62.455
+	min: 0.011s max: 0.023s std dev: 0.00187s window: 505
+average rate: 62.499
+	min: 0.010s max: 0.023s std dev: 0.00192s window: 568
+average rate: 62.497
+	min: 0.010s max: 0.023s std dev: 0.00193s window: 631
+average rate: 62.496
+	min: 0.010s max: 0.023s std dev: 0.00190s window: 694

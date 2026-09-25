@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR01",
+  "commit": "764fbf07d59ef77a567e9fb338d2a20ee375d2e6",
+  "course_kit": {
+    "version": "v1-w02",
+    "archive_sha256": "5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8"
+  },
+  "commands": [
+    "ros2 doctor --report",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 topic list -t",
+    "ros2 node info /turtlesim",
+    "ros2 topic type /turtle1/pose",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 topic hz /turtle1/pose",
+    "ros2 topic echo /turtle1/pose turtlesim/msg/Pose --once"
+  ],
+  "tests": [
+    {
+      "name": "ROS graph: /turtlesim and /teleop_turtle discovered in domain 216",
+      "status": "passed"
+    },
+    {
+      "name": "Pose frequency measured for 12 seconds: 62.496 Hz",
+      "status": "passed"
+    },
+    {
+      "name": "Isolated domain 217: only teleop visible, pose echo exit 124 after 5 seconds",
+      "status": "passed"
+    },
+    {
+      "name": "Restored domain 216: both nodes visible, pose echo exit 0",
+      "status": "passed"
+    }
+  ],
+  "defect": {
+    "reproducer": "Перезапуск turtle_teleop_key в ROS_DOMAIN_ID=217 при turtlesim в 216: в домене 217 ros2 node list показывает только /teleop_turtle, echo /turtle1/pose за 5 секунд завершается exit=124.",
+    "root_cause": "ROS_DOMAIN_ID разделяет DDS discovery. Издатель симулятора и teleop/CLI в разных доменах не обнаруживают друг друга; export не меняет уже работающий процесс.",
+    "proof_after": "Teleop перезапущен в ROS_DOMAIN_ID=216; обе ноды видны, echo /turtle1/pose завершился exit=0, x изменился с 8.776444 до 11.088889 после нажатия стрелок."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 0,
+    "self_study_hours": 0.5
+  },
+  "ai_used": true
+}

@@ -1,0 +1,7 @@
+{
+  "base_domain": 216,
+  "other_domain": 217,
+  "pose_type": "turtlesim/msg/Pose",
+  "broken_exit": 124,
+  "fixed_exit": 0
+}
