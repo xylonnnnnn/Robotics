@@ -1,0 +1,8 @@
+$ ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist {}
+ROS_DOMAIN_ID=218
+exit=0
+Waiting for at least 1 matching subscription(s)...
+Waiting for at least 1 matching subscription(s)...
+publisher: beginning loop
+publishing #1: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=0.0))
+

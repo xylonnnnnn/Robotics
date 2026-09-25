@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR02",
+  "commit": "8c4c7bf3073d5c00952a8d056fe342e09cad0cdd",
+  "course_kit": {
+    "version": "v1-w02",
+    "archive_sha256": "5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8"
+  },
+  "commands": [
+    "ros2 pkg create turtle_bringup --build-type ament_python --license Apache-2.0 --dependencies launch launch_ros turtlesim",
+    "colcon build --symlink-install --packages-select turtle_bringup",
+    "ros2 pkg prefix turtle_bringup",
+    "ros2 launch turtle_bringup sim.launch.py",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 interface show geometry_msgs/msg/Twist",
+    "ros2 topic type /turtle1/pose",
+    "ros2 topic pub --rate 1 --wait-matching-subscriptions 0 /cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "ros2 topic info /cmd_vel --verbose",
+    "ros2 topic pub --rate 1 --wait-matching-subscriptions 0 /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "ros2 topic info /turtle1/cmd_vel --verbose"
+  ],
+  "tests": [
+    {
+      "name": "Empty ament_python package builds before launch addition",
+      "status": "passed"
+    },
+    {
+      "name": "turtle_bringup builds and installed sim.launch.py exists",
+      "status": "passed"
+    },
+    {
+      "name": "ros2 launch starts /turtlesim and stops cleanly",
+      "status": "passed"
+    },
+    {
+      "name": "Wrong /cmd_vel: zero subscriptions and unchanged pose",
+      "status": "passed"
+    },
+    {
+      "name": "Correct /turtle1/cmd_vel: one subscription and changed pose",
+      "status": "passed"
+    }
+  ],
+  "defect": {
+    "reproducer": "Публикация Twist в /cmd_vel: ros2 topic info показывает 1 publisher и 0 subscriptions; поза остаётся x=5.544445, y=5.544445, theta=0.",
+    "root_cause": "turtlesim подписан на полное имя /turtle1/cmd_vel. Совпадение типа geometry_msgs/msg/Twist не компенсирует несовпадение имён топиков.",
+    "proof_after": "Та же команда и скорость опубликованы в /turtle1/cmd_vel: 1 publisher и 1 subscription; поза стала x=7.278801, y=8.526378, theta=2.08."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 0,
+    "self_study_hours": 0.5
+  },
+  "ai_used": true
+}

@@ -1,0 +1,20 @@
+$ pwd
+/workspace/lab2/solution
+$ mkdir -p src evidence/pr02
+exit=0
+$ cat src/turtle_bringup/package.xml
+<?xml version="1.0"?>
+<package format="3">
+  <name>turtle_bringup</name>
+  <version>0.0.1</version>
+  <description>Launch the standard turtlesim node for ROS 2 practice 02.</description>
+  <maintainer email="student@example.com">ROS course student</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

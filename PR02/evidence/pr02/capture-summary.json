@@ -1,0 +1,24 @@
+{
+  "domain": 218,
+  "before": {
+    "x": 5.544444561004639,
+    "y": 5.544444561004639,
+    "theta": 0.0,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "broken": {
+    "x": 5.544444561004639,
+    "y": 5.544444561004639,
+    "theta": 0.0,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "fixed": {
+    "x": 7.278801441192627,
+    "y": 8.52637767791748,
+    "theta": 2.0799999237060547,
+    "linear_velocity": 1.0,
+    "angular_velocity": 0.5
+  }
+}
