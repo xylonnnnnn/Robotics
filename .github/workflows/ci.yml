@@ -5,6 +5,8 @@ on: [push, pull_request]
 env:
   COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w02-5d210c431e32.tar.gz
   COURSE_KIT_SHA256: 5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8
+  COURSE_KIT_PR03_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w05-bca214e3de6f.tar.gz
+  COURSE_KIT_PR03_SHA256: bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197
 
 jobs:
   verify:
@@ -19,7 +21,7 @@ jobs:
         run: |
           set -eo pipefail
           apt-get update
-          apt-get install -y --no-install-recommends ca-certificates curl git python3-colcon-common-extensions ros-jazzy-turtlesim
+          apt-get install -y --no-install-recommends ca-certificates curl git python3-colcon-common-extensions python3-pytest ros-jazzy-turtlesim xvfb
       - name: Validate PR01 environment JSON
         shell: bash
         run: |
@@ -39,6 +41,19 @@ jobs:
             test -f "$(ros2 pkg prefix turtle_bringup)/share/turtle_bringup/launch/sim.launch.py"
             python3 -m py_compile src/turtle_bringup/launch/sim.launch.py
           fi
+      - name: Build and test PR03 patrol
+        shell: bash
+        run: |
+          set -eo pipefail
+          if test -f PRO3/src/patrol/package.xml; then
+            cd PRO3
+            source /opt/ros/jazzy/setup.bash
+            colcon build --symlink-install --base-paths ../PR02/src src --packages-select turtle_bringup patrol
+            source install/setup.bash
+            colcon test --packages-select patrol --event-handlers console_direct+
+            python3 -m pytest -q src/patrol/test
+            PR03_EVIDENCE_DIR=/tmp/pr03-ci-evidence python3 tools/capture_pr03.py
+          fi
       - name: Download pinned course kit
         shell: bash
         run: |
@@ -48,6 +63,17 @@ jobs:
           mkdir -p .course-kit
           tar -xzf course-kit.tar.gz -C .course-kit
           test "$(cat .course-kit/v1/VERSION)" = v1-w02
+      - name: Download pinned PR03 course kit
+        shell: bash
+        run: |
+          set -eo pipefail
+          if test -f PRO3/src/patrol/package.xml; then
+            curl -fSL --retry 3 --retry-delay 3 -o course-kit-pr03.tar.gz "$COURSE_KIT_PR03_URL"
+            printf '%s  %s\n' "$COURSE_KIT_PR03_SHA256" course-kit-pr03.tar.gz | sha256sum -c -
+            mkdir -p .course-kit/pr03
+            tar -xzf course-kit-pr03.tar.gz -C .course-kit/pr03
+            test "$(cat .course-kit/pr03/v1/VERSION)" = v1-w05
+          fi
       - name: Check practice evidence
         shell: bash
         run: |
@@ -57,4 +83,7 @@ jobs:
           fi
           if test -f PR02/evidence/pr02/report.json; then
             python3 .course-kit/v1/tools/check_practice.py PR02 --submission PR02
+          fi
+          if test -f PRO3/evidence/pr03/report.json; then
+            python3 .course-kit/pr03/v1/tools/check_practice.py PR03 --submission PRO3
           fi

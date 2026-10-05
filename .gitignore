@@ -6,3 +6,4 @@ install/
 log/
 .course-kit/
 course-kit.tar.gz
+course-kit-*.tar.gz
