@@ -1,0 +1,3 @@
+$ ros2 topic type /turtle1/pose
+exit=0
+turtlesim/msg/Pose

@@ -1,0 +1,10 @@
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-10-05-17-23-34-409876-024351a86bc4-890
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [turtlesim_node-1]: process started with pid [905]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[turtlesim_node-1] [INFO] [1791221014.484914586] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1791221014.488415836] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[turtlesim_node-1] [INFO] [1791221040.633414585] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [turtlesim_node-1]: process has died [pid 905, exit code -2, cmd '/opt/ros/jazzy/lib/turtlesim/turtlesim_node --ros-args'].

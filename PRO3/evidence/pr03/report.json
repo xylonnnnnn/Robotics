@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR03",
+  "commit": "ec0b7859b134536143342cffc67d0c03d706e91b",
+  "course_kit": {
+    "version": "v1-w05",
+    "archive_sha256": "bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197"
+  },
+  "commands": [
+    "colcon build --symlink-install --base-paths ../PR02/src src --packages-select turtle_bringup patrol",
+    "colcon test --packages-select patrol --event-handlers console_direct+",
+    "python3 -m pytest -q src/patrol/test",
+    "ros2 launch turtle_bringup sim.launch.py",
+    "ros2 run patrol patrol",
+    "ros2 topic info /cmd_vel",
+    "ros2 topic info /turtle1/cmd_vel",
+    "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
+    "python3 tools/capture_pr03.py"
+  ],
+  "tests": [
+    {"name": "colcon test: no pose gives zero Twist; pose enables fixed command", "status": "passed"},
+    {"name": "pytest: 2 passed", "status": "passed"},
+    {"name": "real ROS graph: wrong topic has no subscribers and pose remains unchanged", "status": "passed"},
+    {"name": "real ROS graph: remap connects turtlesim, commands measured for 10 seconds, pose changes", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "ros2 run patrol patrol: /cmd_vel has 1 publisher and 0 subscribers, /turtle1/cmd_vel has 0 publishers and 1 subscriber; 100 commands in 10.001 s but pose remains (5.544445, 5.544445, 0).",
+    "root_cause": "The relative cmd_vel resolves to /cmd_vel, while turtlesim subscribes to /turtle1/cmd_vel. Matching Twist types do not connect differently named topics.",
+    "proof_after": "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel: 1 publisher and 1 subscriber; 100 commands in 10.001 s; pose moves from (6.256371, 5.706039) to (4.938362, 8.765225)."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 0,
+    "self_study_hours": 2
+  },
+  "ai_used": true
+}

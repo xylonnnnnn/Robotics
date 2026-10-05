@@ -1,0 +1,7 @@
+test_no_pose_publishes_zero_twist (test.test_patrol.PatrolCommandTests.test_no_pose_publishes_zero_twist) ... ok
+test_pose_enables_fixed_motion (test.test_patrol.PatrolCommandTests.test_pose_enables_fixed_motion) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK

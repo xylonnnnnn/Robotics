@@ -1,0 +1,5 @@
+$ ros2 topic info /turtle1/cmd_vel
+exit=0
+Type: geometry_msgs/msg/Twist
+Publisher count: 0
+Subscription count: 1
