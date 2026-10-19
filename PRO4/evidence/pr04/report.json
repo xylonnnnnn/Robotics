@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR04",
+  "commit": "8179b328cb37f6bb9125aaf52a1bec80707b56e4",
+  "course_kit": {
+    "version": "v1-w07",
+    "archive_sha256": "001f7ec79674d09a0f7eff2ad0935f58c95101b0cf200425c368f41579d6a31c"
+  },
+  "commands": [
+    "colcon build --symlink-install --packages-select patrol",
+    "colcon test --packages-select patrol --event-handlers console_direct+",
+    "colcon test-result --verbose",
+    "python3 -m pytest -q src/patrol/test",
+    "PR04_EVIDENCE_DIR=evidence/pr04/broken python3 tools/capture_pr04.py --expect-defect",
+    "PR04_EVIDENCE_DIR=/tmp/pr04-history-check python3 tools/capture_pr04.py --expect-defect --defect-commit 2d810caf454278eadec02af304d2d82eabf04697",
+    "PR04_EVIDENCE_DIR=evidence/pr04/fixed python3 tools/capture_pr04.py",
+    "ros2 param set /patrol publish_hz 5.0",
+    "ros2 param set /patrol publish_hz 0.0",
+    "ros2 param get /patrol publish_hz",
+    "ros2 service call /clear std_srvs/srv/Empty {}",
+    "ros2 action list -t"
+  ],
+  "tests": [
+    {
+      "name": "pytest: 37 passed",
+      "status": "passed"
+    },
+    {
+      "name": "colcon: 37 tests, 0 failures",
+      "status": "passed"
+    },
+    {
+      "name": "real ROS stream: 10 to 5 Hz",
+      "status": "passed"
+    },
+    {
+      "name": "zero rejected: parameter and 5 Hz stream preserved",
+      "status": "passed"
+    },
+    {
+      "name": "negative frequency and NaN rejected",
+      "status": "passed"
+    },
+    {
+      "name": "linear and angular speeds applied; turtle moves",
+      "status": "passed"
+    },
+    {
+      "name": "clear service responds and rotate_absolute action discovered",
+      "status": "passed"
+    },
+    {
+      "name": "historical zero-frequency crash reproduced",
+      "status": "passed"
+    }
+  ],
+  "defect": {
+    "reproducer": "Commit 2d810caf454278eadec02af304d2d82eabf04697: disable frequency validation; set publish_hz to 0.0 after 5.0. Node exits 1 with ZeroDivisionError; zero commands in 4 seconds; outstanding CLI times out.",
+    "root_cause": "Missing finite/range check admits zero to the post-set timer callback, which computes 1.0 / publish_hz.",
+    "proof_after": "Same zero request is rejected before any state mutation. ros2 param get returns 5.0, observer receives 20 commands in 4.001 s (4.998 Hz). All 37 regression tests pass."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "ai_used": true
+}

@@ -1,0 +1,4 @@
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[INFO] [1792413566.972018295] [turtlesim]: Starting turtlesim with node name /turtlesim
+[INFO] [1792413566.974860961] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[INFO] [1792413593.239570376] [rclcpp]: signal_handler(SIGINT/SIGTERM)

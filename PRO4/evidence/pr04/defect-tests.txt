@@ -1,0 +1,30 @@
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+___________________ test_reject_out_of_range[publish_hz-0.0] ___________________
+
+name = 'publish_hz', value = 0.0
+
+    @pytest.mark.parametrize('name,value', [('publish_hz', 0.0), ('publish_hz', -1.0),
+        ('publish_hz', 0.99), ('publish_hz', 30.01), ('linear_speed', -0.01),
+        ('linear_speed', 1.01), ('turn_rate', -1.01), ('turn_rate', 1.01)])
+    def test_reject_out_of_range(name, value):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+src/patrol/test/test_parameters.py:24: Failed
+__________________ test_reject_out_of_range[publish_hz-30.01] __________________
+
+name = 'publish_hz', value = 30.01
+
+    @pytest.mark.parametrize('name,value', [('publish_hz', 0.0), ('publish_hz', -1.0),
+        ('publish_hz', 0.99), ('publish_hz', 30.01), ('linear_speed', -0.01),
+        ('linear_speed', 1.01), ('turn_rate', -1.01), ('turn_rate', 1.01)])
+    def test_reject_out_of_range(name, value):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+src/patrol/test/test_parameters.py:24: Failed
+=========================== short test summary info ============================
+FAILED src/patrol/test/test_parameters.py::test_reject_out_of_range[publish_hz-0.0]
+FAILED src/patrol/test/test_parameters.py::test_reject_out_of_range[publish_hz-30.01]
+2 failed, 1 passed, 32 deselected in 0.09s
