@@ -1,0 +1,66 @@
+$ ros2 run turtlesim turtlesim_node
+
+$ ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel
+
+initial 10 Hz: {"messages": 40, "seconds": 4.003057127000034, "hz": 9.992363019304886, "last_twist": [0.5, 0.3]}
+
+$ ros2 topic type /turtle1/pose
+exit=0
+turtlesim/msg/Pose
+
+
+$ ros2 param set /patrol publish_hz 5.0
+exit=0
+Set parameter successful
+
+
+changed 5 Hz: {"messages": 20, "seconds": 4.0028415839999525, "hz": 4.996450541521165, "last_twist": [0.5, 0.3]}
+
+$ ros2 param set /patrol publish_hz 0.0
+exit=0
+Setting parameter failed: publish_hz must be in [1.0, 30.0]
+
+
+$ ros2 param get /patrol publish_hz
+exit=0
+Double value is: 5.0
+
+
+preserved 5 Hz after zero: {"messages": 20, "seconds": 4.001385793999987, "hz": 4.9982683574249895, "last_twist": [0.5, 0.3]}
+
+$ ros2 param set /patrol publish_hz -1.0
+exit=0
+Setting parameter failed: publish_hz must be in [1.0, 30.0]
+
+
+$ ros2 param set /patrol publish_hz .nan
+exit=0
+Setting parameter failed: publish_hz must be a finite number
+
+
+$ ros2 param set /patrol linear_speed 0.8
+exit=0
+Set parameter successful
+
+
+$ ros2 param set /patrol turn_rate -0.6
+exit=0
+Set parameter successful
+
+
+new speeds, still 5 Hz: {"messages": 20, "seconds": 4.005061461000025, "hz": 4.993681169378657, "last_twist": [0.8, -0.6]}
+
+$ ros2 service call /clear std_srvs/srv/Empty {}
+exit=0
+waiting for service to become available...
+requester: making request: std_srvs.srv.Empty_Request()
+
+response:
+std_srvs.srv.Empty_Response()
+
+
+
+$ ros2 action list -t
+exit=0
+/turtle1/rotate_absolute [turtlesim/action/RotateAbsolute]
+

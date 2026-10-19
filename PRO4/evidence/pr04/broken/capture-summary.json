@@ -1,0 +1,28 @@
+{
+  "initial": {
+    "messages": 40,
+    "seconds": 4.001948459999994,
+    "hz": 9.995131221654978,
+    "last_twist": [
+      0.5,
+      0.3
+    ]
+  },
+  "changed": {
+    "messages": 20,
+    "seconds": 4.000233252000044,
+    "hz": 4.999708452000984,
+    "last_twist": [
+      0.5,
+      0.3
+    ]
+  },
+  "after_zero": {
+    "messages": 0,
+    "seconds": 4.001028667000014,
+    "hz": 0.0,
+    "last_twist": null
+  },
+  "exit_code": 1,
+  "defect_reproduced": true
+}

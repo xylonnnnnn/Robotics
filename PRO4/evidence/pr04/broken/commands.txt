@@ -1,0 +1,24 @@
+$ ros2 run turtlesim turtlesim_node
+
+$ ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel
+
+initial 10 Hz: {"messages": 40, "seconds": 4.001948459999994, "hz": 9.995131221654978, "last_twist": [0.5, 0.3]}
+
+$ ros2 topic type /turtle1/pose
+exit=0
+turtlesim/msg/Pose
+
+
+$ ros2 param set /patrol publish_hz 5.0
+exit=0
+Set parameter successful
+
+
+changed 5 Hz: {"messages": 20, "seconds": 4.000233252000044, "hz": 4.999708452000984, "last_twist": [0.5, 0.3]}
+
+$ ros2 param set /patrol publish_hz 0.0
+exit=124
+CLI timeout
+
+
+broken stream: {"messages": 0, "seconds": 4.001028667000014, "hz": 0.0, "last_twist": null}
