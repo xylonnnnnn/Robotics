@@ -87,3 +87,69 @@ jobs:
           if test -f PRO3/evidence/pr03/report.json; then
             python3 .course-kit/pr03/v1/tools/check_practice.py PR03 --submission PRO3
           fi
+
+  pr04:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: ros:jazzy-ros-base
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PR04 dependencies
+        shell: bash
+        run: |
+          set -eo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends git python3-colcon-common-extensions python3-pytest ros-jazzy-turtlesim
+      - name: Verify provided PR04 course kit
+        shell: bash
+        run: |
+          set -eo pipefail
+          (cd PRO4/course-kit && sha256sum -c SHA256SUMS)
+          mkdir -p .course-kit/pr04
+          tar -xzf PRO4/course-kit/pr04-v1-w07.tar.gz -C .course-kit/pr04
+          test "$(cat .course-kit/pr04/v1/VERSION)" = v1-w07
+          (cd .course-kit/pr04/v1 && sha256sum -c MANIFEST.sha256)
+      - name: Build and test PR04
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO4
+          source /opt/ros/jazzy/setup.bash
+          colcon build --symlink-install --packages-select patrol
+          source install/setup.bash
+          colcon test --packages-select patrol --event-handlers console_direct+
+          colcon test-result --verbose
+          python3 -m pytest -q src/patrol/test
+      - name: Reproduce historical zero-frequency defect
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO4
+          source /opt/ros/jazzy/setup.bash
+          source install/setup.bash
+          PR04_EVIDENCE_DIR=/tmp/pr04-ci/broken python3 tools/capture_pr04.py --expect-defect --defect-commit 2d810caf454278eadec02af304d2d82eabf04697
+      - name: Verify fixed stream and ROS interfaces
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO4
+          source /opt/ros/jazzy/setup.bash
+          source install/setup.bash
+          PR04_EVIDENCE_DIR=/tmp/pr04-ci/fixed python3 tools/capture_pr04.py
+      - name: Validate PR04 evidence contract
+        shell: bash
+        run: |
+          set -eo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          python3 .course-kit/pr04/v1/tools/check_practice.py PR04 --submission PRO4
+      - name: Upload PR04 runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr04-runtime-evidence
+          path: |
+            /tmp/pr04-ci
+            PRO4/log
+          if-no-files-found: warn

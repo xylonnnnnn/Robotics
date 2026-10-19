@@ -73,8 +73,21 @@ def main():
         return process
 
     def command(command, timeout=25):
-        result = subprocess.run(command, env=env, text=True, capture_output=True,
-                                timeout=timeout, check=False)
+        try:
+            result = subprocess.run(command, env=env, text=True, capture_output=True,
+                                    timeout=timeout, check=False)
+        except subprocess.TimeoutExpired as error:
+            # A crashed parameter server cannot answer the outstanding CLI request.
+            stdout = error.stdout or b''
+            stderr = error.stderr or b''
+            if isinstance(stdout, bytes):
+                stdout = stdout.decode()
+            if isinstance(stderr, bytes):
+                stderr = stderr.decode()
+            result = subprocess.CompletedProcess(command, 124, stdout,
+                                                  stderr + 'CLI timeout\n')
+        result.stdout += result.stderr
+        result.stderr = ''
         text = f"$ {' '.join(command)}\nexit={result.returncode}\n{result.stdout}{result.stderr}"
         transcript.append(text)
         print(text, flush=True)
@@ -118,7 +131,7 @@ def main():
         assert 'Set parameter successful' in changed.stdout
         result['changed'] = rate('changed 5 Hz', 5.0)
         assert result['changed']['last_twist'] == [0.5, 0.3]
-        zero = command(['ros2', 'param', 'set', '/patrol', 'publish_hz', '0.0'])
+        zero = command(['ros2', 'param', 'set', '/patrol', 'publish_hz', '0.0'], timeout=10)
         if args.expect_defect:
             patrol.wait(timeout=10)
             spin_for(observer, 0.8)

@@ -18,8 +18,6 @@ LIMITS = {'linear_speed': (0.0, 1.0), 'turn_rate': (-1.0, 1.0),
 def validate_settings(settings: Settings) -> None:
     for name, (low, high) in LIMITS.items():
         value = getattr(settings, name)
-        if name == 'publish_hz':  # PR04 deliberate defect: no frequency validation
-            continue
         if type(value) not in (int, float) or not math.isfinite(value):
             raise ValueError(f'{name} must be a finite number')
         if not low <= value <= high:

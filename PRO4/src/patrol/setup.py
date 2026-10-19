@@ -11,7 +11,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
-    test_suite='test',
+    tests_require=['pytest'],
     zip_safe=True,
     maintainer='ROS course student',
     maintainer_email='student@example.com',
