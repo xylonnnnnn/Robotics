@@ -1,0 +1,49 @@
+Starting >>> course_description
+UpdateCTestConfiguration  from :/tmp/robotics-pro56/PRO6/build/course_description/CTestConfiguration.ini
+Parse Config file:/tmp/robotics-pro56/PRO6/build/course_description/CTestConfiguration.ini
+   Site: 9feefd5dc1fb
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261026-1353 - Experimental
+UpdateCTestConfiguration  from :/tmp/robotics-pro56/PRO6/build/course_description/CTestConfiguration.ini
+Parse Config file:/tmp/robotics-pro56/PRO6/build/course_description/CTestConfiguration.ini
+Test project /tmp/robotics-pro56/PRO6/build/course_description
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: model_contract
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml" "--package-name" "course_description" "--output-file" "/tmp/robotics-pro56/PRO6/build/course_description/ament_cmake_pytest/model_contract.txt" "--command" "/usr/bin/python3" "-u" "-m" "pytest" "/tmp/robotics-pro56/PRO6/src/course_description/test/test_model.py" "-o" "cache_dir=/tmp/robotics-pro56/PRO6/build/course_description/ament_cmake_pytest/model_contract/.cache" "--junit-xml=/tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml" "--junit-prefix=course_description"
+1: Working Directory: /tmp/robotics-pro56/PRO6/build/course_description
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/tmp/robotics-pro56/PRO6/build/course_description':
+1:  - /usr/bin/python3 -u -m pytest /tmp/robotics-pro56/PRO6/src/course_description/test/test_model.py -o cache_dir=/tmp/robotics-pro56/PRO6/build/course_description/ament_cmake_pytest/model_contract/.cache --junit-xml=/tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml --junit-prefix=course_description
+1: ============================= test session starts ==============================
+1: platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+1: cachedir: build/course_description/ament_cmake_pytest/model_contract/.cache
+1: rootdir: /tmp/robotics-pro56/PRO6
+1: plugins: ament-copyright-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-xmllint-0.17.5, ament-flake8-0.17.5, launch-testing-ros-0.26.12, ament-pep257-0.17.5, colcon-core-0.21.2
+1: collected 10 items
+1: 
+1: ../../src/course_description/test/test_model.py ..........               [100%]
+1: 
+1: - generated xml file: /tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml -
+1: ============================== 10 passed in 0.08s ==============================
+1: -- run_test.py: return code 0
+1: -- run_test.py: verify result file '/tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml'
+1/1 Test #1: model_contract ...................   Passed    0.24 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+pytest    =   0.24 sec*proc (1 test)
+
+Total Test time (real) =   0.24 sec
+Finished <<< course_description [0.27s]
+
+Summary: 1 package finished [0.34s]
+Summary: 11 tests, 0 errors, 0 failures, 0 skipped

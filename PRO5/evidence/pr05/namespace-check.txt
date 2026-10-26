@@ -1,0 +1,27 @@
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-10-26-13-56-13-579478-9feefd5dc1fb-2903
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Starting patrol in /robot_b; record=false
+[INFO] [turtlesim_node-1]: process started with pid [2906]
+[INFO] [patrol-2]: process started with pid [2907]
+[INFO] [pose_relay-3]: process started with pid [2908]
+[INFO] [pose_subscriber-4]: process started with pid [2909]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[turtlesim_node-1] [INFO] [1793022973.646238471] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1793022973.650312513] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[pose_relay-3] [INFO] [1793022973.759409472] [robot_b.pose_relay]: Relaying pose -> sensor_pose; offered BEST_EFFORT / VOLATILE
+[pose_subscriber-4] [INFO] [1793022973.760461930] [robot_b.pose_subscriber]: Requested best_effort; received=0
+[pose_subscriber-4] [INFO] [1793022973.862080388] [robot_b.pose_subscriber]: received=1 x=5.5444 y=5.5444
+[pose_subscriber-4] [INFO] [1793022974.540084389] [robot_b.pose_subscriber]: received=50 x=5.8859 y=5.5806
+[pose_subscriber-4] [INFO] [1793022975.342085041] [robot_b.pose_subscriber]: received=100 x=6.2636 y=5.7095
+[pose_subscriber-4] [INFO] [1793022976.142949125] [robot_b.pose_subscriber]: received=150 x=6.5998 y=5.9244
+[pose_subscriber-4] [INFO] [1793022976.944205709] [robot_b.pose_subscriber]: received=200 x=6.8753 y=6.2131
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [pose_subscriber-4]: sending signal 'SIGINT' to process[pose_subscriber-4]
+[INFO] [pose_relay-3]: sending signal 'SIGINT' to process[pose_relay-3]
+[INFO] [patrol-2]: sending signal 'SIGINT' to process[patrol-2]
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[turtlesim_node-1] [INFO] [1793022977.018499667] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [turtlesim_node-1]: process has finished cleanly [pid 2906]
+[INFO] [pose_relay-3]: process has finished cleanly [pid 2908]
+[INFO] [patrol-2]: process has finished cleanly [pid 2907]
+[INFO] [pose_subscriber-4]: process has finished cleanly [pid 2909]

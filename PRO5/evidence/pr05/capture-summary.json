@@ -1,0 +1,11 @@
+{
+  "live_reliable": 0,
+  "replay_reliable": 0,
+  "recorded_messages": 365,
+  "replayed_messages": 365,
+  "sequence_sha256": "984b77f8ad165e343cac1f5be8498d6a1945c4b3f9ddade0a0eece45bed40e58",
+  "single_topic_mcap": true,
+  "record_false_verified": true,
+  "namespace_robot_b_verified": true,
+  "replay_verified": true
+}

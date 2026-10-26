@@ -71,6 +71,6 @@
   </xacro:macro>
   <!-- Kit sensors share an origin; boxes are symbolic visual/collision geometry. -->
   <xacro:sensor name="camera" parent="base_link" color="sensor_green"/>
-  <xacro:sensor name="lidar" parent="camera_link" color="sensor_orange"/>
+  <xacro:sensor name="lidar" parent="base_link" color="sensor_orange"/>
   <xacro:sensor name="imu" parent="base_link" color="sensor_green"/>
 </robot>

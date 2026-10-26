@@ -1,0 +1,151 @@
+$ check_urdf /tmp/pr06-final/broken.urdf
+robot name is: course_ackermann
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 6 child(ren)
+    child(1):  camera_link
+        child(1):  lidar_link
+    child(2):  front_left_knuckle
+        child(1):  front_left_wheel
+    child(3):  front_right_knuckle
+        child(1):  front_right_wheel
+    child(4):  imu_link
+    child(5):  rear_left_wheel
+    child(6):  rear_right_wheel
+
+exit=0
+
+$ python3 -m pytest -q /tmp/robotics-pro56/PRO6/src/course_description/test/test_model.py -k lidar_parent
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________________________ test_lidar_parent _______________________________
+
+    def test_lidar_parent():
+>       assert joint(model(), 'lidar_joint').find('parent').get('link') == 'base_link'
+E       AssertionError: assert 'camera_link' == 'base_link'
+E         - base_link
+E         + camera_link
+
+../robotics-pro56/PRO6/src/course_description/test/test_model.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED ../robotics-pro56/PRO6/src/course_description/test/test_model.py::test_lidar_parent
+1 failed, 9 deselected in 0.02s
+
+exit=1
+
+broken: base_link -> lidar_link = [0.56, 0.0, 0.76]
+
+$ timeout 4s ros2 run tf2_ros tf2_echo base_link lidar_link
+[INFO] [1793022997.952087385] [tf2_echo]: Waiting for transform base_link ->  lidar_link: Invalid frame ID "base_link" passed to canTransform argument target_frame - frame does not exist
+At time 0.0
+- Translation: [0.560, 0.000, 0.760]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.560
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.760
+  0.000  0.000  0.000  1.000
+At time 0.0
+- Translation: [0.560, 0.000, 0.760]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.560
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.760
+  0.000  0.000  0.000  1.000
+At time 0.0
+- Translation: [0.560, 0.000, 0.760]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.560
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.760
+  0.000  0.000  0.000  1.000
+[INFO] [1793023001.855706346] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+
+exit=124
+
+$ ros2 run tf2_tools view_frames
+[INFO] [1793023002.263835221] [view_frames]: Listening to tf data for 5.0 seconds...
+[INFO] [1793023007.339275292] [view_frames]: Generating graph...
+[INFO] [1793023007.345369459] [view_frames]: Result:tf2_msgs.srv.FrameGraph_Response(frame_yaml="camera_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nimu_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nlidar_link: \n  parent: 'camera_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\n")
+[INFO] [1793023007.350302626] [view_frames]: Exporting graph in frames_2026-10-26_13.56.47.pdf file...
+
+exit=0
+
+$ check_urdf /tmp/pr06-final/fixed.urdf
+robot name is: course_ackermann
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 7 child(ren)
+    child(1):  camera_link
+    child(2):  front_left_knuckle
+        child(1):  front_left_wheel
+    child(3):  front_right_knuckle
+        child(1):  front_right_wheel
+    child(4):  imu_link
+    child(5):  lidar_link
+    child(6):  rear_left_wheel
+    child(7):  rear_right_wheel
+
+exit=0
+
+$ python3 -m pytest -q /tmp/robotics-pro56/PRO6/src/course_description/test/test_model.py -k lidar_parent
+.                                                                        [100%]
+1 passed, 9 deselected in 0.01s
+
+exit=0
+
+fixed: base_link -> lidar_link = [0.28, 0.0, 0.38]
+
+$ timeout 4s ros2 run tf2_ros tf2_echo base_link lidar_link
+[INFO] [1793023008.302868251] [tf2_echo]: Waiting for transform base_link ->  lidar_link: Invalid frame ID "base_link" passed to canTransform argument target_frame - frame does not exist
+At time 0.0
+- Translation: [0.280, 0.000, 0.380]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.280
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.380
+  0.000  0.000  0.000  1.000
+At time 0.0
+- Translation: [0.280, 0.000, 0.380]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.280
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.380
+  0.000  0.000  0.000  1.000
+At time 0.0
+- Translation: [0.280, 0.000, 0.380]
+- Rotation: in Quaternion (xyzw) [0.000, 0.000, 0.000, 1.000]
+- Rotation: in RPY (radian) [0.000, -0.000, 0.000]
+- Rotation: in RPY (degree) [0.000, -0.000, 0.000]
+- Matrix:
+  1.000  0.000  0.000  0.280
+  0.000  1.000  0.000  0.000
+  0.000  0.000  1.000  0.380
+  0.000  0.000  0.000  1.000
+[INFO] [1793023012.209354920] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+
+exit=124
+
+$ ros2 run tf2_tools view_frames
+[INFO] [1793023012.555278586] [view_frames]: Listening to tf data for 5.0 seconds...
+[INFO] [1793023017.590881089] [view_frames]: Generating graph...
+[INFO] [1793023017.595589880] [view_frames]: Result:tf2_msgs.srv.FrameGraph_Response(frame_yaml="camera_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nimu_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nlidar_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\n")
+[INFO] [1793023017.599114089] [view_frames]: Exporting graph in frames_2026-10-26_13.56.57.pdf file...
+
+exit=0
+
+$ import -window root /tmp/pr06-final/rviz.png
+
+exit=0

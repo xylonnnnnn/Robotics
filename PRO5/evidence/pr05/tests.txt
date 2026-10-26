@@ -1,0 +1,30 @@
+Starting >>> patrol
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+cachedir: /tmp/robotics-pro56/PRO5/build/patrol/.pytest_cache
+rootdir: /tmp/robotics-pro56/PRO5/src/patrol
+plugins: ament-copyright-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-xmllint-0.17.5, ament-flake8-0.17.5, launch-testing-ros-0.26.12, ament-pep257-0.17.5, colcon-core-0.21.2
+collected 37 items
+
+test/test_parameters.py ...................................              [ 94%]
+test/test_patrol.py ..                                                   [100%]
+
+----- generated xml file: /tmp/robotics-pro56/PRO5/build/patrol/pytest.xml -----
+============================== 37 passed in 0.19s ==============================
+Finished <<< patrol [0.56s]
+Starting >>> course_bringup
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+cachedir: /tmp/robotics-pro56/PRO5/build/course_bringup/.pytest_cache
+rootdir: /tmp/robotics-pro56/PRO5/src/course_bringup
+plugins: ament-copyright-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-xmllint-0.17.5, ament-flake8-0.17.5, launch-testing-ros-0.26.12, ament-pep257-0.17.5, colcon-core-0.21.2
+collected 4 items
+
+test/test_qos.py ....                                                    [100%]
+
+- generated xml file: /tmp/robotics-pro56/PRO5/build/course_bringup/pytest.xml -
+============================== 4 passed in 0.09s ===============================
+Finished <<< course_bringup [0.45s]
+
+Summary: 2 packages finished [1.10s]
+Summary: 41 tests, 0 errors, 0 failures, 0 skipped

@@ -153,3 +153,117 @@ jobs:
             /tmp/pr04-ci
             PRO4/log
           if-no-files-found: warn
+
+  pr05:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: ros:jazzy-ros-base
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PR05 dependencies
+        shell: bash
+        run: |
+          set -eo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends git python3-colcon-common-extensions python3-pytest ros-jazzy-turtlesim ros-jazzy-ros2bag ros-jazzy-rosbag2-transport ros-jazzy-rosbag2-storage-mcap
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Verify provided PR05 course kit
+        shell: bash
+        run: |
+          set -eo pipefail
+          (cd PRO5/course-kit && sha256sum -c SHA256SUMS)
+          mkdir -p .course-kit/pr05
+          tar -xzf PRO5/course-kit/pr05-v1-w08.tar.gz -C .course-kit/pr05
+          test "$(cat .course-kit/pr05/v1/VERSION)" = v1-w08
+          (cd .course-kit/pr05/v1 && sha256sum -c MANIFEST.sha256)
+      - name: Build and test PR05
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO5
+          source /opt/ros/jazzy/setup.bash
+          colcon build --symlink-install --packages-select patrol course_bringup
+          source install/setup.bash
+          colcon test --packages-select patrol course_bringup --event-handlers console_direct+
+          colcon test-result --verbose
+      - name: Reproduce PR05 runtime experiments
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO5
+          source /opt/ros/jazzy/setup.bash
+          source install/setup.bash
+          PR05_EVIDENCE_DIR=/tmp/pr05-ci python3 tools/capture_pr05.py
+      - name: Validate PR05 submitted evidence
+        shell: bash
+        run: |
+          set -eo pipefail
+          python3 .course-kit/pr05/v1/tools/check_practice.py PR05 --submission PRO5
+      - name: Upload PR05 runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr05-runtime-evidence
+          path: |
+            /tmp/pr05-ci
+            PRO5/log
+          if-no-files-found: warn
+
+  pr06:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: ros:jazzy-ros-base
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PR06 dependencies
+        shell: bash
+        run: |
+          set -eo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends git python3-colcon-common-extensions python3-pytest ros-jazzy-xacro ros-jazzy-robot-state-publisher ros-jazzy-tf2-tools ros-jazzy-ament-cmake-pytest liburdfdom-tools ros-jazzy-rviz2 xvfb imagemagick graphviz
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Verify provided PR06 course kit
+        shell: bash
+        run: |
+          set -eo pipefail
+          (cd PRO6/course-kit && sha256sum -c SHA256SUMS)
+          mkdir -p .course-kit/pr06
+          tar -xzf PRO6/course-kit/pr06-v1-w08.tar.gz -C .course-kit/pr06
+          test "$(cat .course-kit/pr06/v1/VERSION)" = v1-w08
+          (cd .course-kit/pr06/v1 && sha256sum -c MANIFEST.sha256)
+      - name: Build and test PR06
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO6
+          source /opt/ros/jazzy/setup.bash
+          colcon build --symlink-install --packages-select course_description
+          source install/setup.bash
+          colcon test --packages-select course_description --event-handlers console_direct+
+          colcon test-result --verbose
+      - name: Reproduce PR06 runtime experiments
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd PRO6
+          source /opt/ros/jazzy/setup.bash
+          source install/setup.bash
+          PR06_EVIDENCE_DIR=/tmp/pr06-ci python3 tools/capture_pr06.py --rviz-screenshot
+      - name: Validate PR06 submitted evidence
+        shell: bash
+        run: |
+          set -eo pipefail
+          python3 .course-kit/pr06/v1/tools/check_practice.py PR06 --submission PRO6
+      - name: Upload PR06 runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr06-runtime-evidence
+          path: |
+            /tmp/pr06-ci
+            PRO6/log
+          if-no-files-found: warn

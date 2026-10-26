@@ -1,0 +1,47 @@
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-10-26-13-55-53-927818-9feefd5dc1fb-2764
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Starting patrol in /robot_a; record=true
+[INFO] [turtlesim_node-1]: process started with pid [2767]
+[INFO] [patrol-2]: process started with pid [2768]
+[INFO] [pose_relay-3]: process started with pid [2769]
+[INFO] [pose_subscriber-4]: process started with pid [2770]
+[INFO] [ros2-5]: process started with pid [2771]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[turtlesim_node-1] [INFO] [1793022953.985684587] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1793022953.991483212] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[pose_subscriber-4] [INFO] [1793022954.070885337] [robot_a.pose_subscriber]: Requested best_effort; received=0
+[pose_relay-3] [INFO] [1793022954.072328754] [robot_a.pose_relay]: Relaying pose -> sensor_pose; offered BEST_EFFORT / VOLATILE
+[pose_relay-3] [WARN] [1793022954.085599670] [robot_a.pose_relay]: New subscription discovered on topic 'sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY
+[ros2-5] stdin is not a terminal device. Keyboard handling disabled.[INFO] [1793022954.090347504] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[ros2-5] [INFO] [1793022954.090361754] [rosbag2_recorder]: Event publisher thread: Started
+[ros2-5] [INFO] [1793022954.093477212] [rosbag2_recorder]: Starting recording to '/tmp/pr05-final/bag'
+[ros2-5] [INFO] [1793022954.094537254] [rosbag2_recorder]: Listening for topics...
+[ros2-5] [INFO] [1793022954.094551421] [rosbag2_recorder]: Recording...
+[ros2-5] [INFO] [1793022954.094591754] [rosbag2_recorder]: Topics discovery started.
+[pose_subscriber-4] [INFO] [1793022954.513230171] [robot_a.pose_subscriber]: received=1 x=5.5444 y=5.5444
+[ros2-5] [INFO] [1793022954.613008212] [rosbag2_recorder]: Subscribed to topic '/robot_a/sensor_pose'
+[ros2-5] [INFO] [1793022954.613162212] [rosbag2_recorder]: All requested topics are subscribed. Stopping discovery...
+[ros2-5] [INFO] [1793022954.613172046] [rosbag2_recorder]: Topics discovery stopped.
+[pose_subscriber-4] [INFO] [1793022955.203689963] [robot_a.pose_subscriber]: received=50 x=5.8624 y=5.5758
+[pose_subscriber-4] [INFO] [1793022956.003683171] [robot_a.pose_subscriber]: received=100 x=6.2419 y=5.6992
+[pose_subscriber-4] [INFO] [1793022956.801218630] [robot_a.pose_subscriber]: received=150 x=6.5812 y=5.9093
+[pose_subscriber-4] [INFO] [1793022957.599147881] [robot_a.pose_subscriber]: received=200 x=6.8608 y=6.1940
+[pose_subscriber-4] [INFO] [1793022958.402643881] [robot_a.pose_subscriber]: received=250 x=7.0647 y=6.5370
+[pose_subscriber-4] [INFO] [1793022959.201339756] [robot_a.pose_subscriber]: received=300 x=7.1813 y=6.9186
+[pose_subscriber-4] [INFO] [1793022960.006154632] [robot_a.pose_subscriber]: received=350 x=7.2037 y=7.3170
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [ros2-5]: sending signal 'SIGINT' to process[ros2-5]
+[INFO] [pose_subscriber-4]: sending signal 'SIGINT' to process[pose_subscriber-4]
+[INFO] [pose_relay-3]: sending signal 'SIGINT' to process[pose_relay-3]
+[INFO] [patrol-2]: sending signal 'SIGINT' to process[patrol-2]
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[ros2-5] [INFO] [1793022960.446401465] [rosbag2_recorder]: Pausing recording.
+[ros2-5] [INFO] [1793022960.446446965] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[ros2-5] [INFO] [1793022960.447323132] [rosbag2_recorder]: Recording stopped
+[turtlesim_node-1] [INFO] [1793022960.447482049] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2-5] [INFO] [1793022960.448711090] [rosbag2_recorder]: Event publisher thread: Exited
+[INFO] [turtlesim_node-1]: process has finished cleanly [pid 2767]
+[INFO] [pose_subscriber-4]: process has finished cleanly [pid 2770]
+[INFO] [patrol-2]: process has finished cleanly [pid 2768]
+[INFO] [ros2-5]: process has finished cleanly [pid 2771]
+[INFO] [pose_relay-3]: process has finished cleanly [pid 2769]
