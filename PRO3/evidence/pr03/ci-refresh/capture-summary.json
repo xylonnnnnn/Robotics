@@ -1,0 +1,45 @@
+{
+  "domain": 220,
+  "initial_pose": {
+    "x": 5.544444561004639,
+    "y": 5.544444561004639,
+    "theta": 0.0
+  },
+  "wrong": {
+    "before": {
+      "x": 5.544444561004639,
+      "y": 5.544444561004639,
+      "theta": 0.0
+    },
+    "after": {
+      "x": 5.544444561004639,
+      "y": 5.544444561004639,
+      "theta": 0.0
+    },
+    "rate": {
+      "messages": 100,
+      "seconds": 10.001992922,
+      "hz": 9.998007475094672
+    },
+    "topic_info": "$ ros2 topic info /cmd_vel\nexit=0\nType: geometry_msgs/msg/Twist\nPublisher count: 1\nSubscription count: 0\n",
+    "expected_topic_info": "$ ros2 topic info /turtle1/cmd_vel\nexit=0\nType: geometry_msgs/msg/Twist\nPublisher count: 0\nSubscription count: 1\n"
+  },
+  "fixed": {
+    "before": {
+      "x": 6.3697357177734375,
+      "y": 5.765404224395752,
+      "theta": 0.5184000134468079
+    },
+    "after": {
+      "x": 4.857181549072266,
+      "y": 8.731284141540527,
+      "theta": -2.721585273742676
+    },
+    "rate": {
+      "messages": 101,
+      "seconds": 10.001088671000048,
+      "hz": 10.09890056198258
+    },
+    "topic_info": "$ ros2 topic info /turtle1/cmd_vel\nexit=0\nType: geometry_msgs/msg/Twist\nPublisher count: 1\nSubscription count: 1\n"
+  }
+}
