@@ -27,7 +27,7 @@ Node namespace: /robot_a
 Topic type: turtlesim/msg/Pose
 Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
 Endpoint type: PUBLISHER
-GID: 01.0f.eb.7d.61.0a.5f.84.00.00.00.00.00.00.13.03
+GID: 01.10.fc.66.04.6c.b9.7f.5c.c4.ae.6a.00.00.16.03
 QoS profile:
   Reliability: BEST_EFFORT
   History (Depth): UNKNOWN
@@ -44,7 +44,7 @@ Node namespace: /robot_a
 Topic type: turtlesim/msg/Pose
 Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
 Endpoint type: SUBSCRIPTION
-GID: 01.0f.eb.7d.62.0a.04.fa.00.00.00.00.00.00.13.04
+GID: 01.10.c8.31.b5.28.6b.82.d3.40.0a.bf.00.00.16.04
 QoS profile:
   Reliability: RELIABLE
   History (Depth): UNKNOWN
@@ -59,7 +59,7 @@ Node namespace: /
 Topic type: turtlesim/msg/Pose
 Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
 Endpoint type: SUBSCRIPTION
-GID: 01.0f.eb.7d.db.09.34.fe.00.00.00.00.00.00.13.04
+GID: 01.10.f2.f6.8b.d9.97.a8.2d.f8.f7.46.00.00.16.04
 QoS profile:
   Reliability: RELIABLE
   History (Depth): UNKNOWN
@@ -74,7 +74,7 @@ Node namespace: /
 Topic type: turtlesim/msg/Pose
 Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
 Endpoint type: SUBSCRIPTION
-GID: 01.0f.eb.7d.db.09.34.fe.00.00.00.00.00.00.14.04
+GID: 01.10.f2.f6.8b.d9.97.a8.2d.f8.f7.46.00.00.17.04
 QoS profile:
   Reliability: BEST_EFFORT
   History (Depth): UNKNOWN
@@ -88,7 +88,7 @@ QoS profile:
 exit=0
 
 $ timeout 4s ros2 topic echo /robot_a/sensor_pose --once --qos-durability volatile --qos-reliability reliable
-[WARN] [1793022949.622584668] [_ros2cli_2749]: New publisher discovered on topic '/robot_a/sensor_pose', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
+[WARN] [1793023762.931990211] [_ros2cli_4980]: New publisher discovered on topic '/robot_a/sensor_pose', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
 
 exit=124
 
