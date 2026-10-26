@@ -1,0 +1,10 @@
+stdin is not a terminal device. Keyboard handling disabled.[INFO] [1793023778.358099010] [rosbag2_player]: Set rate to 1
+[INFO] [1793023778.358158885] [rosbag2_player]: Overriding QoS profile for topic /robot_a/sensor_pose
+[INFO] [1793023778.360678011] [rosbag2_player]: Adding keyboard callbacks.
+[INFO] [1793023778.360694136] [rosbag2_player]: Press SPACE for Pause/Resume
+[INFO] [1793023778.360697886] [rosbag2_player]: Press CURSOR_RIGHT for Play Next Message
+[INFO] [1793023778.360700927] [rosbag2_player]: Press CURSOR_UP for Increase Rate 10%
+[INFO] [1793023778.360703594] [rosbag2_player]: Press CURSOR_DOWN for Decrease Rate 10%
+[WARN] [1793023778.360903177] [rosbag2_player]: New subscription discovered on topic '/robot_a/sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[INFO] [1793023778.363850427] [rosbag2_player]: Playback until timestamp: -1
+[INFO] [1793023778.363953344] [rosbag2_player]: Sleep 2000000000 ns

@@ -169,7 +169,10 @@ def main() -> None:
         assert fixed_rate['messages'] >= 80
         assert abs(wrong_after['x'] - wrong_before['x']) < 0.02
         assert abs(wrong_after['y'] - wrong_before['y']) < 0.02
-        assert abs(fixed_after['x'] - fixed_before['x']) > 0.1
+        # A turn can return x near its starting value while y changes substantially.
+        displacement_squared = sum((fixed_after[axis] - fixed_before[axis]) ** 2
+                                   for axis in ('x', 'y'))
+        assert displacement_squared > 0.1 ** 2
     finally:
         observer.destroy_node()
         if rclpy.ok():

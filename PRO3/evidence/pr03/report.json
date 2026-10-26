@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "practice_id": "PR03",
-  "commit": "ec0b7859b134536143342cffc67d0c03d706e91b",
+  "commit": "c00bd25560d0251c2830036b0cf0a3a6225e649d",
   "course_kit": {
     "version": "v1-w05",
     "archive_sha256": "bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197"
@@ -15,13 +15,30 @@
     "ros2 topic info /cmd_vel",
     "ros2 topic info /turtle1/cmd_vel",
     "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
-    "python3 tools/capture_pr03.py"
+    "python3 tools/capture_pr03.py",
+    "RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PR03_EVIDENCE_DIR=/tmp/pr03-ci-fix python3 tools/capture_pr03.py"
   ],
   "tests": [
-    {"name": "colcon test: no pose gives zero Twist; pose enables fixed command", "status": "passed"},
-    {"name": "pytest: 2 passed", "status": "passed"},
-    {"name": "real ROS graph: wrong topic has no subscribers and pose remains unchanged", "status": "passed"},
-    {"name": "real ROS graph: remap connects turtlesim, commands measured for 10 seconds, pose changes", "status": "passed"}
+    {
+      "name": "colcon test: no pose gives zero Twist; pose enables fixed command",
+      "status": "passed"
+    },
+    {
+      "name": "pytest: 2 passed",
+      "status": "passed"
+    },
+    {
+      "name": "real ROS graph: wrong topic has no subscribers and pose remains unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "real ROS graph: remap connects turtlesim, commands measured for 10 seconds, pose changes",
+      "status": "passed"
+    },
+    {
+      "name": "CI refresh: planar displacement, Cyclone DDS localhost; real wrong/fixed graph passed",
+      "status": "passed"
+    }
   ],
   "defect": {
     "reproducer": "ros2 run patrol patrol: /cmd_vel has 1 publisher and 0 subscribers, /turtle1/cmd_vel has 0 publishers and 1 subscriber; 100 commands in 10.001 s but pose remains (5.544445, 5.544445, 0).",
@@ -37,5 +54,9 @@
     "contact_academic_hours": 0,
     "self_study_hours": 2
   },
-  "ai_used": true
+  "ai_used": true,
+  "ci_refresh": {
+    "reason": "A robot turning in a circle can return close to its initial x while moving in y. The smoke test now checks planar displacement; patrol source is unchanged.",
+    "evidence": "evidence/pr03/ci-refresh/capture-summary.json"
+  }
 }

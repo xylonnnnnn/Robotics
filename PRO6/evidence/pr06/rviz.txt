@@ -1,0 +1,5 @@
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[INFO] [1793023024.246107134] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793023024.246142050] [rviz2]: OpenGl version: 4.5 (GLSL 4.5)
+[INFO] [1793023024.260215550] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793023033.222345430] [rclcpp]: signal_handler(SIGINT/SIGTERM)

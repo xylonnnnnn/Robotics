@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "commit": "360f83c8538b9652e31d6a5eabc532d5c42b5333",
+  "course_kit": {
+    "version": "v1-w08",
+    "archive_sha256": "aea8efd0a51668af63f2e475b82bfa28bd76c21f20d8afea6b136d43a56a88fb"
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "time_note": "Плановая трудоёмкость из задания, не измерение времени работы ИИ.",
+  "ai_used": true,
+  "practice_id": "PR05",
+  "commands": [
+    "source /opt/ros/jazzy/setup.bash",
+    "colcon build --symlink-install",
+    "source install/setup.bash",
+    "colcon test --event-handlers console_direct+",
+    "colcon test-result --verbose",
+    "(cd course-kit && sha256sum -c SHA256SUMS)",
+    "python3 .course-kit/pr05/v1/tools/check_practice.py PR05 --submission PRO5",
+    "PR05_EVIDENCE_DIR=/tmp/pr05-shutdown-final python3 tools/capture_pr05.py"
+  ],
+  "tests": [
+    {
+      "name": "colcon/pytest patrol + course_bringup: 42 passed",
+      "status": "passed"
+    },
+    {
+      "name": "Real launch: namespace, record=false, clean process shutdown",
+      "status": "passed"
+    },
+    {
+      "name": "QoS live: reliable timeout, best_effort receives",
+      "status": "passed"
+    },
+    {
+      "name": "One MCAP topic; 381 recorded = 381 replayed poses in exact order; reliable=0",
+      "status": "passed"
+    },
+    {
+      "name": "Idle subscriber SIGINT exits cleanly; context stays active until final zero command and node cleanup",
+      "status": "passed"
+    }
+  ],
+  "defect": {
+    "reproducer": "ros2 launch course_bringup patrol.launch.py namespace:=robot_a subscriber_reliability:=reliable record:=false; timeout 4s ros2 topic echo /robot_a/sensor_pose --once --qos-reliability reliable => exit=124. Topic info and callback log in qos-before.txt.",
+    "root_cause": "Relay offers BEST_EFFORT / VOLATILE; reliable reader requests a stronger reliability policy, so DDS does not match them. Topic discovery succeeds independently of QoS delivery.",
+    "proof_after": "Launch with subscriber_reliability:=best_effort; echo exit=0. One MCAP containing /robot_a/sensor_pose was replayed with config/qos-overrides.yaml: reliable got 0, best_effort got all 381 recorded messages, equal in order and values. See qos-after.txt, bag-metadata.yaml and capture-summary.json."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true,
+    "replay_verified": true
+  },
+  "environment": {
+    "os": "Ubuntu 24.04",
+    "ros": "Jazzy",
+    "rmw": "rmw_cyclonedds_cpp",
+    "discovery": "LOCALHOST"
+  }
+}
