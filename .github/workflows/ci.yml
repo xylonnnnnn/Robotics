@@ -13,6 +13,7 @@ env:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     container: ros:jazzy-ros-base
     steps:
       - uses: actions/checkout@v4
@@ -56,21 +57,21 @@ jobs:
             python3 -m pytest -q src/patrol/test
             PR03_EVIDENCE_DIR=/tmp/pr03-ci-evidence python3 tools/capture_pr03.py
           fi
-      - name: Download pinned course kit
+      - name: Verify pinned course kit
         shell: bash
         run: |
           set -eo pipefail
-          curl -fSL --retry 3 --retry-delay 3 -o course-kit.tar.gz "$COURSE_KIT_URL"
+          cp .github/course-kit/pr01-pr02-v1-w02.tar.gz course-kit.tar.gz
           printf '%s  %s\n' "$COURSE_KIT_SHA256" course-kit.tar.gz | sha256sum -c -
           mkdir -p .course-kit
           tar -xzf course-kit.tar.gz -C .course-kit
           test "$(cat .course-kit/v1/VERSION)" = v1-w02
-      - name: Download pinned PR03 course kit
+      - name: Verify pinned PR03 course kit
         shell: bash
         run: |
           set -eo pipefail
           if test -f PRO3/src/patrol/package.xml; then
-            curl -fSL --retry 3 --retry-delay 3 -o course-kit-pr03.tar.gz "$COURSE_KIT_PR03_URL"
+            cp .github/course-kit/pr03-v1-w05.tar.gz course-kit-pr03.tar.gz
             printf '%s  %s\n' "$COURSE_KIT_PR03_SHA256" course-kit-pr03.tar.gz | sha256sum -c -
             mkdir -p .course-kit/pr03
             tar -xzf course-kit-pr03.tar.gz -C .course-kit/pr03

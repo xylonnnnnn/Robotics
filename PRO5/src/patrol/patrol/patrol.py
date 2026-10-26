@@ -6,6 +6,7 @@ from rclpy.node import Node
 import signal
 import rclpy
 from rclpy.executors import ExternalShutdownException
+from rclpy.signals import SignalHandlerOptions
 from turtlesim.msg import Pose
 
 from patrol.parameters import LIMITS, Settings, updated_settings, validate_settings
@@ -67,7 +68,10 @@ class Patrol(Node):
 
 
 def main(args=None) -> None:
-    rclpy.init(args=args)
+    # Keep the ROS context alive until our finally block has sent stop and destroyed nodes.
+    signal.signal(signal.SIGINT, signal.default_int_handler)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
+    rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
     node = None
     try:
         node = Patrol()
@@ -76,6 +80,7 @@ def main(args=None) -> None:
         pass
     finally:
         signal.signal(signal.SIGINT, signal.SIG_IGN)
+        signal.signal(signal.SIGTERM, signal.SIG_IGN)
         if node is not None:
             if rclpy.ok():
                 node.command_publisher.publish(Twist())

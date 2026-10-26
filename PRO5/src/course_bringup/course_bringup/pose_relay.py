@@ -3,6 +3,7 @@
 import signal
 import rclpy
 from rclpy.executors import ExternalShutdownException
+from rclpy.signals import SignalHandlerOptions
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from turtlesim.msg import Pose
@@ -27,7 +28,10 @@ class PoseRelay(Node):
 
 
 def run(node_type, args=None):
-    rclpy.init(args=args)
+    # Keep the ROS context alive until our finally block has sent stop and destroyed nodes.
+    signal.signal(signal.SIGINT, signal.default_int_handler)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
+    rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
     node = None
     try:
         node = node_type()
@@ -36,6 +40,7 @@ def run(node_type, args=None):
         pass
     finally:
         signal.signal(signal.SIGINT, signal.SIG_IGN)
+        signal.signal(signal.SIGTERM, signal.SIG_IGN)
         if node is not None:
             node.destroy_node()
         if rclpy.ok():
