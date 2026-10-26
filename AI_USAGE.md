@@ -24,7 +24,7 @@
 
 - Использован ИИ: да.
 - Модель и инструмент: GPT-6, Codex.
-- Характер помощи и проверка: Разбор задания, развитие patrol из ПР04, launch и узлы QoS, MCAP/replay, тесты, CI, документация и публикация. Проверка в Ubuntu 24.04 / ROS 2 Jazzy: 41 pytest-тест, настоящий граф ROS, reliable=0 до и после replay, best_effort получает все 365 сообщений единственной записи MCAP; проверены namespace, record=false, остановка процессов и официальный checker v1-w08.
+- Характер помощи и проверка: Разбор задания, развитие patrol из ПР04, launch и узлы QoS, MCAP/replay, тесты, CI, документация и публикация. Проверка в Ubuntu 24.04 / ROS 2 Jazzy: 42 pytest-тест, настоящий граф ROS, reliable=0 до и после replay, best_effort получает все 365 сообщений единственной записи MCAP; проверены namespace, record=false, остановка процессов и официальный checker v1-w08.
 - Подробности: [PRO5/AI_USAGE.md](PRO5/AI_USAGE.md).
 
 ## ПР06

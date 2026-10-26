@@ -35,7 +35,8 @@ def run(node_type, args=None):
     node = None
     try:
         node = node_type()
-        rclpy.spin(node)
+        while rclpy.ok():
+            rclpy.spin_once(node, timeout_sec=0.1)
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:

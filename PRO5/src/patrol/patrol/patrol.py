@@ -75,7 +75,8 @@ def main(args=None) -> None:
     node = None
     try:
         node = Patrol()
-        rclpy.spin(node)
+        while rclpy.ok():
+            rclpy.spin_once(node, timeout_sec=0.1)
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:
