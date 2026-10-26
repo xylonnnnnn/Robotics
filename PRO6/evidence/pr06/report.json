@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "commit": "f60587f1d9de7ead7e1d9ec3c256158347d18e66",
+  "course_kit": {
+    "version": "v1-w08",
+    "archive_sha256": "aea8efd0a51668af63f2e475b82bfa28bd76c21f20d8afea6b136d43a56a88fb"
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "time_note": "Плановая трудоёмкость из задания, не измерение времени работы ИИ.",
+  "ai_used": true,
+  "practice_id": "PR06",
+  "commands": [
+    "source /opt/ros/jazzy/setup.bash",
+    "colcon build --symlink-install",
+    "source install/setup.bash",
+    "colcon test --event-handlers console_direct+",
+    "colcon test-result --verbose",
+    "(cd course-kit && sha256sum -c SHA256SUMS)",
+    "python3 .course-kit/pr06/v1/tools/check_practice.py PR06 --submission PRO6",
+    "xacro src/course_description/urdf/vehicle.urdf.xacro > /tmp/vehicle.urdf",
+    "check_urdf /tmp/vehicle.urdf",
+    "PR06_EVIDENCE_DIR=/tmp/pr06-final python3 tools/capture_pr06.py --rviz-screenshot"
+  ],
+  "tests": [
+    {
+      "name": "colcon/pytest model contract: 10 passed (CTest aggregate also passed)",
+      "status": "passed"
+    },
+    {
+      "name": "Historical parent test expected failure and fixed parent test success",
+      "status": "passed"
+    },
+    {
+      "name": "check_urdf accepts both trees; tf2 measured wrong and fixed lidar positions",
+      "status": "passed"
+    },
+    {
+      "name": "Late /tf_static transient_local exit=0; volatile exit=124",
+      "status": "passed"
+    },
+    {
+      "name": "RViz model loaded, Global Status: Ok; screenshot saved",
+      "status": "passed"
+    }
+  ],
+  "defect": {
+    "reproducer": "tools/capture_pr06.py uses git show of ceb6e57851150d0b5ae53cfe479328d9cfded105 to load the historical Xacro; the same test_lidar_parent fails and real tf2 reports [0.56, 0, 0.76] m.",
+    "root_cause": "lidar_joint incorrectly has parent=camera_link while keeping the base-relative offset [0.28, 0, 0.38]. This adds the camera offset twice. The tree is structurally valid, so check_urdf alone cannot detect it.",
+    "proof_after": "parent restored to base_link; same pytest passes, all 10 model tests pass, check_urdf passes, tf2_echo and a fresh Buffer report [0.28, 0, 0.38]. frames.md records owners. tf-qos.txt records real late-reader durability behavior."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  }
+}

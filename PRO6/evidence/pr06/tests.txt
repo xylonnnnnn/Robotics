@@ -28,9 +28,9 @@ test 1
 1: rootdir: /tmp/robotics-pro56/PRO6
 1: plugins: ament-copyright-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-xmllint-0.17.5, ament-flake8-0.17.5, launch-testing-ros-0.26.12, ament-pep257-0.17.5, colcon-core-0.21.2
 1: collected 10 items
-1: 
+1:
 1: ../../src/course_description/test/test_model.py ..........               [100%]
-1: 
+1:
 1: - generated xml file: /tmp/robotics-pro56/PRO6/build/course_description/test_results/course_description/model_contract.xunit.xml -
 1: ============================== 10 passed in 0.08s ==============================
 1: -- run_test.py: return code 0
